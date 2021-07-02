@@ -6,7 +6,6 @@ namespace App\Http\Clients;
 
 
 use GuzzleHttp\Client;
-use http\Client\Request;
 
 class TelegramBotClient
 {
