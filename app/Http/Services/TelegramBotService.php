@@ -19,4 +19,9 @@ class TelegramBotService
     {
         $this->telegramBotClient->postRequest('sendMessage', compact('chat_id', 'text'));
     }
+
+    public function getPrivateMessage(int $offset): array
+    {
+        return $this->telegramBotClient->getRequest('getUpdates', compact('offset'));
+    }
 }

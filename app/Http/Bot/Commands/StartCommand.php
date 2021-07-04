@@ -12,6 +12,6 @@ class StartCommand extends BaseBotChatCommand
 
     protected function handle(TelegramBotService $telegramBotService): bool
     {
-
+        
     }
 }

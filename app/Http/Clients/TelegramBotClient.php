@@ -24,4 +24,25 @@ class TelegramBotClient
 
         return json_decode($response->getBody()->getContents(), true);
     }
+
+    public function getRequest(string $methodName, ?array $params = null): array
+    {
+        // $request = $this->client->get($methodName, [
+        //     'query' => $params
+        // ]);
+
+        // $request = $this->client->request('GET', $methodName, [
+        //     'query' => $params
+        // ]);
+
+        // $request = $this->client->request('GET', 'getUpdates', [
+        //     'query' => [
+        //         'offset' => -1,
+        //     ]
+        // ]);
+
+        return ['done' => 'yes'];
+
+        // return json_decode($request->getBody()->getContents(), true);
+    }
 }

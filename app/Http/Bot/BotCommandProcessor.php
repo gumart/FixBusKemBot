@@ -18,10 +18,12 @@ class BotCommandProcessor
         SelectTrolleybusCommand::class, SettingsCommand::class, StepBackCommand::class, UnsubscribeCommand::class
     ];
 
-    public function process(): bool
+    public function process(): string
     {
-        foreach($this->commands as $command){
+        // foreach($this->commands as $command){
 
-        }
+        // }
+
+        return false;
     }
 }
