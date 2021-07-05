@@ -13,17 +13,14 @@ use App\Http\Bot\Commands\{CancelCommand, ChooseActionCommand, ChooseRouteComman
 class BotCommandProcessor
 {
     private $commands = [
-        StartCommand::class, CancelCommand::class, ChooseActionCommand::class, ChooseRouteCommand::class,
-        GetScheduleCommand::class, SelectBusCommand::class, SelectMinibusCommand::class, SelectTramCommand::class,
-        SelectTrolleybusCommand::class, SettingsCommand::class, StepBackCommand::class, UnsubscribeCommand::class
+        1 => StartCommand::class, 2 => CancelCommand::class, 3 => ChooseActionCommand::class, 4 => ChooseRouteCommand::class,
+        5 => GetScheduleCommand::class, 6 => SelectBusCommand::class, 7 => SelectMinibusCommand::class, 8 => SelectTramCommand::class,
+        9 => SelectTrolleybusCommand::class, 10 => SettingsCommand::class, 11 => StepBackCommand::class, 12 => UnsubscribeCommand::class
     ];
 
     public function process(): string
     {
-        // foreach($this->commands as $command){
 
-        // }
-
-        return false;
+        return "false";
     }
 }

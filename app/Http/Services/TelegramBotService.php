@@ -15,12 +15,12 @@ class TelegramBotService
         $this->telegramBotClient = $telegramBotClient;
     }
 
-    public function sendPrivateMessage(int $chat_id, string $text)
+    public function sendPrivateMessage(int $chat_id, string $text): bool
     {
         $this->telegramBotClient->postRequest('sendMessage', compact('chat_id', 'text'));
     }
 
-    public function getPrivateMessage(int $offset): array
+    public function getUpdates(int $offset): array
     {
         return $this->telegramBotClient->getRequest('getUpdates', compact('offset'));
     }
