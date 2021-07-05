@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('username')->nullable();
             $table->string('chat_id');
-            $table->smallInteger('status');
+            $table->smallInteger('status')->default(1);
             $table->smallInteger('privilege')->default(1);
         });
     }

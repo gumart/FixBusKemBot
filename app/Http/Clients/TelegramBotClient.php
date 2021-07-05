@@ -31,6 +31,10 @@ class TelegramBotClient
              'query' => $params
          ]);
 
-         return json_decode($request->getBody()->getContents(), true);
+         $jsonMapperService = app(JSONMapperService::class);
+
+        //         return json_decode($request->getBody()->getContents(), true);
+        return $jsonMapperService->decodeArrayOfEntitiesFromArray(json_decode($request->getBody()->getContents(), true),
+            app(TelegramBotUpdatesEntity::class));
     }
 }

@@ -20,7 +20,7 @@ class TelegramBotService
         $this->telegramBotClient->postRequest('sendMessage', compact('chat_id', 'text'));
     }
 
-    public function getUpdates(int $offset): array
+    public function getMessages(int $offset): array
     {
         return $this->telegramBotClient->getRequest('getUpdates', compact('offset'));
     }
