@@ -5,36 +5,40 @@ declare(strict_types=1);
 namespace App\Http\Clients;
 
 
+use App\Http\Entities\TelegramBotUpdatesEntity;
+use App\Http\Services\JSONMapperService;
 use GuzzleHttp\Client;
 
 class TelegramBotClient
 {
     private Client $client;
+    private JSONMapperService $jsonMapperService;
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, JSONMapperService $jsonMapperService)
     {
         $this->client = $client;
+        $this->jsonMapperService = $jsonMapperService;
     }
 
-    public function postRequest(string $methodName, ?array $params = null): array
+    private function postRequest(string $methodName, ?array $params = null): array
     {
         $response = $this->client->post($methodName, [
             'form_params' => $params
         ]);
 
-        return json_decode($response->getBody()->getContents(), true);
+        return json_decode($response->getBody()->getContents(), true)['result'];
     }
 
-    public function getRequest(string $methodName, ?array $params = null): array
+    public function sendMessage(?array $params = null) : array
     {
-         $request = $this->client->get($methodName, [
-             'query' => $params
-         ]);
+        return $this->postRequest('sendMessage', $params);
+    }
 
-         $jsonMapperService = app(JSONMapperService::class);
-
-        //         return json_decode($request->getBody()->getContents(), true);
-        return $jsonMapperService->decodeArrayOfEntitiesFromArray(json_decode($request->getBody()->getContents(), true),
-            app(TelegramBotUpdatesEntity::class));
+    public function getMessages(?array $params = null) : array
+    {
+        return $this->jsonMapperService->decodeArrayOfEntitiesFromArray(
+            $this->postRequest('getUpdates', $params),
+            new TelegramBotUpdatesEntity()
+        );
     }
 }

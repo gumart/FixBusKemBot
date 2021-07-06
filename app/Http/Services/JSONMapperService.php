@@ -77,7 +77,17 @@ class JSONMapperService
      * @return T
      * @throws \JsonMapper_Exception
      */
-    public function decodeArrayOfEntitiesFromArray(array $data, object $entity)
+
+    /**
+     * @template     T
+     *
+     * @param array  $data
+     * @param object $entity
+     *
+     * @return T
+     * @throws \JsonMapper_Exception
+     */
+    public function decodeArrayOfEntitiesFromArray(array $data, object $entity) : array
     {
         $result = [];
 
@@ -87,5 +97,4 @@ class JSONMapperService
 
         return $result;
     }
-
 }

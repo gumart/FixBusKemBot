@@ -9,6 +9,6 @@ class TelegramBotUpdatesEntity
 {
 
     public int $update_id;
-    public TelegramBotMessageEntity $telegramBotMessageEntity;
+    public TelegramBotMessageEntity $message;
 
 }

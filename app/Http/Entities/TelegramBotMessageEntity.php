@@ -11,7 +11,7 @@ class TelegramBotMessageEntity
     public int $message_id;
     public int $date;
     public string $text;
-    public TelegramBotUserEntity $telegramBotUserEntity;
-    public TelegramBotChatEntity $telegramBotChatEntity;
+    public TelegramBotUserEntity $from;
+    public TelegramBotChatEntity $chat;
 
 }

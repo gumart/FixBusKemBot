@@ -6,7 +6,9 @@ namespace App\Http\Bot;
 
 
 use App\Http\Clients\TelegramBotClient;
+use App\Http\Services\MessageService;
 use App\Http\Services\TelegramBotService;
+use App\Http\Services\UserService;
 use App\Http\Bot\Commands\{CancelCommand, ChooseActionCommand, ChooseRouteCommand, GetScheduleCommand,
     SelectBusCommand, SelectMinibusCommand, SelectTramCommand, SelectTrolleybusCommand,
     SettingsCommand, StartCommand, StepBackCommand, UnsubscribeCommand};
@@ -22,9 +24,10 @@ class BotCommandProcessor
 
     public function process(): array
     {
-        $telegramBotService = app(TelegramBotService::class);
-        $telegramBotService->getMessages(-1);
+        $messageService = new MessageService();
 
-        return $telegramBotService->getMessages(-1);
+        $telegramBotService = app(TelegramBotService::class);
+
+        return $messageService->filter($telegramBotService->getMessages(-1));
     }
 }

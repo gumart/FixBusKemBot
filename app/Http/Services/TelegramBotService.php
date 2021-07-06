@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Services;
 
 use App\Http\Clients\TelegramBotClient;
+use App\Http\Entities\TelegramBotChatEntity;
+use App\Http\Entities\TelegramBotUpdatesEntity;
 
 class TelegramBotService
 {
@@ -17,11 +19,13 @@ class TelegramBotService
 
     public function sendPrivateMessage(int $chat_id, string $text): bool
     {
-        $this->telegramBotClient->postRequest('sendMessage', compact('chat_id', 'text'));
+        $this->telegramBotClient->sendMessage(compact('chat_id', 'text'));
     }
 
     public function getMessages(int $offset): array
     {
-        return $this->telegramBotClient->getRequest('getUpdates', compact('offset'));
+        $userService = new UserService();
+
+        return $userService->updateOrCreate($this->telegramBotClient->getMessages(compact('offset')));
     }
 }
