@@ -16,6 +16,14 @@ use App\Http\Bot\Commands\{CancelCommand, ChooseActionCommand, ChooseRouteComman
 
 class BotCommandProcessor
 {
+    private TelegramBotService $telegramBotService;
+
+    public function __construct(TelegramBotService $telegramBotService)
+    {
+
+        $this->telegramBotService = $telegramBotService;
+    }
+
     private $commands = [
         1 => StartCommand::class, 2 => CancelCommand::class, 3 => ChooseActionCommand::class, 4 => ChooseRouteCommand::class,
         5 => GetScheduleCommand::class, 6 => SelectBusCommand::class, 7 => SelectMinibusCommand::class, 8 => SelectTramCommand::class,
@@ -24,10 +32,6 @@ class BotCommandProcessor
 
     public function process(): array
     {
-        $messageService = new MessageService();
-
-        $telegramBotService = app(TelegramBotService::class);
-
-        return $messageService->filter($telegramBotService->getMessages(-1));
+        return $this->telegramBotService->getMessages(-1);
     }
 }

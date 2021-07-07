@@ -10,14 +10,15 @@ use phpDocumentor\Reflection\Types\Null_;
 class UserService
 {
 
-    public function updateOrCreate(array $messages): array
+    public function updateOrCreate(array $updates): array
     {
         $result = [];
 
-        foreach ($messages as $message) {
-            $user = $message->from;
+        foreach ($updates as $update) {
 
-            $userId = $user->id;
+            $user = $update->message->from;
+
+            $userId = $update->message->from->id;
 
             $status = User::updateOrCreate([
                 'chat_id'=>$userId],
@@ -25,9 +26,11 @@ class UserService
                     'first_name'=>$user->first_name,
                     'last_name'=>$user->last_name,
                     'username'=>$user->username,
-                    'chat_id'=>$message->chat->chat_id])->status;
+                    'chat_id'=>$update->message->chat->id])->status;
 
-            $result[] = ['id'=>$userId, 'text'=>$message->text, 'status'=>$status];
+            $result[] = ['id'=>$update->message->from->id, 'text'=>$update->message->text, 'status'=>$status];
         }
+
+        return $result;
     }
 }

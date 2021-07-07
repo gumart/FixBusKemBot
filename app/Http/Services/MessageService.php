@@ -7,10 +7,14 @@ namespace App\Http\Services;
 
 class MessageService
 {
-    public function filter(array $messages)
+    public function getUsersData(array $updates) : array
     {
-        $userService = new UserService();
+        $result = [];
 
-        return $userService->updateOrCreate($messages);
+        foreach ($updates as $update) {
+            $result[] = dump($update->message->from);
+        }
+
+        return $result;
     }
 }

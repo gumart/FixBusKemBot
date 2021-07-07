@@ -11,10 +11,14 @@ use App\Http\Entities\TelegramBotUpdatesEntity;
 class TelegramBotService
 {
     private TelegramBotClient $telegramBotClient;
+    private UserService $userService;
+    private MessageService $messageService;
 
-    public function __construct(TelegramBotClient $telegramBotClient)
+    public function __construct(TelegramBotClient $telegramBotClient, UserService $userService, MessageService $messageService)
     {
         $this->telegramBotClient = $telegramBotClient;
+        $this->userService = $userService;
+        $this->messageService = $messageService;
     }
 
     public function sendPrivateMessage(int $chat_id, string $text): bool
@@ -24,8 +28,7 @@ class TelegramBotService
 
     public function getMessages(int $offset): array
     {
-        $userService = new UserService();
-
-        return $userService->updateOrCreate($this->telegramBotClient->getMessages(compact('offset')));
+        return $filtered_messages = $this->messageService->getUsersData($this->telegramBotClient->getMessages(compact('offset')));
+//        return $this->messageService->filter($userService->updateOrCreate($this->telegramBotClient->getMessages(compact('offset'))));
     }
 }
